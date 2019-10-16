@@ -1,14 +1,21 @@
 "use strict";
 
-
-const express = require("express");
-const app = express();
-const compression = require("compression");
-const helmet = require("helmet");
+/// Globals
+const express = require("express"),
+    es6Renderer = require("express-es6-template-engine"),
+    compression = require("compression"),
+    helmet = require("helmet"),
+    app = express();
 
 /// MiddleWare
 app.use(compression());
 app.use(helmet());
+
+/// ES6 Templating
+app.engine('html', es6Renderer);
+app.set('views', './views');
+app.set('view engine', 'html');
+
 
 /// Routes
 const rootController = require("./routes/index"),
